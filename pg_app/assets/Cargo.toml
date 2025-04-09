@@ -1,0 +1,20 @@
+[package]
+name = "assets"
+version = "0.1.0"
+edition = "2024"
+
+include = [
+    "assets/**/*",       
+    # All assets
+    "assets/styling/*", 
+     # CSS files
+    "src/**/*",
+]
+
+[dependencies]
+dioxus = { workspace = true }
+
+
+
+[lib]
+path = "src/lib.rs"
