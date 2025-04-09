@@ -1,0 +1,15 @@
+# components/Cargo.toml
+[package]
+name = "components"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+path = "src/lib.rs"  # This tells Cargo where to find the library
+
+[dependencies]
+server = { path = "../server" }
+shared = { path = "../shared" }
+
+dioxus = { version = "0.6" }
+# Add any other dependencies your components need
