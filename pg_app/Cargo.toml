@@ -1,9 +1,4 @@
-[package]
-name = "pg_app"
-version = "0.1.0"
-authors = ["Youknowwho55 <dylan9112@gmail.com>"]
-edition = "2021"
-
+# directory is only acting as a workspace (not a crate)
 
 [workspace]
 resolver = "2"
@@ -13,41 +8,18 @@ members = [
     "components",
     "assets",
     "pages",
-
 ]
 
-
-
-[dependencies]
-dioxus = { version = "0.6.0", features = ["router", "fullstack"] }
-
-[features]
-default = ["desktop"]
-# The feature that are only required for the web = ["dioxus/web"] build target should be optional and only enabled in the web = ["dioxus/web"] feature
-web = ["dioxus/web"]
-# The feature that are only required for the desktop = ["dioxus/desktop"] build target should be optional and only enabled in the desktop = ["dioxus/desktop"] feature
-desktop = ["dioxus/desktop"]
-# The feature that are only required for the mobile = ["dioxus/mobile"] build target should be optional and only enabled in the mobile = ["dioxus/mobile"] feature
-mobile = ["dioxus/mobile"]
-
-
-
-
-
 [workspace.dependencies]
-dioxus = { version = "0.6.0"}
+dioxus = { version = "0.6.3" }
 
 
 # workspace
+assets = { path = "assets" }
 server = { path = "server" }
 shared = { path = "shared" }
 
 
-
-
-
-
-[profile]
 
 [profile.wasm-dev]
 inherits = "dev"

@@ -1,31 +1,34 @@
 use crate::Route;
 use dioxus::prelude::*;
 
-use ui::{Assets, Navbar};
-
-/// The Navbar component that will be rendered on all pages of our app since every page is under the layout.
-///
-///
-/// This layout component wraps the UI of [Route::Home] and [Route::Blog] in a common navbar. The contents of the Home and Blog
-/// routes will be rendered under the outlet inside this component
+/// The Navbar component that will be rendered on all pages of our app
 #[component]
 pub fn Navbar() -> Element {
     rsx! {
+        nav { id: "navbar", class: "w-full bg-gray-900 text-white shadow-md",
 
-        div {
-            id: "navbar",
-            Link {
-                to: Route::Home {},
-                "Home"
-            }
-            Link {
-                to: Route::Blog { id: 1 },
-                "Blog"
+            div { class: "max-w-6xl mx-auto px-4 py-4 flex items-center justify-between",
+
+                h1 { class: "text-xl font-semibold", "MyApp" }
+
+                div { class: "flex gap-6 text-sm",
+
+                    Link {
+                        to: Route::Home {},
+                        class: "hover:text-blue-400 transition",
+                        "🏠 Home"
+                    }
+
+                    Link {
+                        to: Route::Blog { id: 1 },
+                        class: "hover:text-blue-400 transition",
+                        "📝 Blog"
+                    }
+                }
             }
         }
 
-        // The `Outlet` component is used to render the next component inside the layout. In this case, it will render either
-        // the [`Home`] or [`Blog`] component depending on the current route.
+        // Render child route component here
         Outlet::<Route> {}
     }
 }

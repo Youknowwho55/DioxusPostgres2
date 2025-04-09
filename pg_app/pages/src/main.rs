@@ -2,7 +2,7 @@
 use dioxus::prelude::*;
 
 use views::{Blog, Home, Navbar};
-use ui::{Assets, Navbar};
+use assets::Assets;
 
 mod components;
 mod views;
@@ -31,12 +31,8 @@ fn main() {
 #[component]
 fn App() -> Element {
     rsx! {
-
         // Inlined CSS for reliability
-        style { "{Assets::MAIN_CSS}" }
         style { "{Assets::TAILWIND_CSS}" }
-
-
         Router::<Route> {}
     }
 }
