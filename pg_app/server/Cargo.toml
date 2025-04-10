@@ -6,7 +6,7 @@ edition = "2024"
 
 [dependencies]
 dioxus = { workspace = true, features = ["fullstack"] }
-# shared = { workspace = true }
+shared = { workspace = true }
 
 dotenv = "0.15.0"
 tokio = { version = "1.44.2", features = [

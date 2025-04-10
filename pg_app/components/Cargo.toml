@@ -10,6 +10,7 @@ path = "src/lib.rs"  # This tells Cargo where to find the library
 [dependencies]
 server = { path = "../server" }
 shared = { path = "../shared" }
+log = "0.4.27"
 
 dioxus = { version = "0.6" }
 # Add any other dependencies your components need

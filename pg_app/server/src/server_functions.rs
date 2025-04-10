@@ -18,7 +18,7 @@ async fn init_db() -> Result<PgPool, sqlx::Error> {
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     let connection_pool = PgPool::connect(&database_url).await?;
 
-    sqlx::migrate!("../migrations").run(&connection_pool).await?;
+    sqlx::migrate!("./../migrations").run(&connection_pool).await?;
     Ok(connection_pool)
 }
 

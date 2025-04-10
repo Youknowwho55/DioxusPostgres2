@@ -1,5 +1,3 @@
-
-
 pub use add_post::AddPost;
 pub use all_posts::Posts;
 pub use post::Post;

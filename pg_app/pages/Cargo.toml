@@ -8,6 +8,7 @@ name = "pages"
 path = "src/main.rs"
 
 [dependencies]
+components = { path = "../components" }  # Relative path to your components crate
 dioxus = { version = "0.6.3", features = ["router", "fullstack"] }
 # plus anything else you need
 

@@ -5,7 +5,7 @@ use server::server_functions::get_all_posts;
 static POSTS: GlobalSignal<Vec<models::Post>> = GlobalSignal::new(Vec::new);
 use shared::models;
 
-use crate::post::Post; 
+use crate::db::Post; 
 
 #[component]
 pub fn Posts() -> Element {
