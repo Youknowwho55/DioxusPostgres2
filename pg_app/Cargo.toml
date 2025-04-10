@@ -13,7 +13,6 @@ members = [
 [workspace.dependencies]
 dioxus = { version = "0.6.3" }
 
-
 # workspace
 assets = { path = "assets" }
 server = { path = "server" }
@@ -30,3 +29,5 @@ inherits = "dev"
 
 [profile.android-dev]
 inherits = "dev"
+
+

@@ -10,7 +10,15 @@ path = "src/main.rs"
 [dependencies]
 components = { path = "../components" }  # Relative path to your components crate
 dioxus = { version = "0.6.3", features = ["router", "fullstack"] }
+dioxus-desktop = "0.6.3"
+
+
 # plus anything else you need
 
 
 assets = { workspace = true }
+
+[package.metadata.bundle]
+name = "YourAppName"
+identifier = "com.yourdomain.yourapp"
+icon = ["../assets/icon.png"]

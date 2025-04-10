@@ -3,6 +3,7 @@ use dioxus::prelude::*;
 
 use views::{Blog, Home, Navbar};
 use assets::Assets;
+use dioxus_desktop::{WindowBuilder, Config, LogicalSize};
 
 mod components;
 mod views;
@@ -22,10 +23,11 @@ enum Route {
 
 
 fn main() {
-    // The `launch` function is the main entry point for a dioxus app. It takes a component and renders it with the platform feature
-    // you have enabled
     dioxus::launch(App);
+
 }
+
+
 
 
 #[component]
@@ -33,6 +35,7 @@ fn App() -> Element {
     rsx! {
         // Inlined CSS for reliability
         style { "{Assets::TAILWIND_CSS}" }
+        document::Title { "My Desktop Application" }
         Router::<Route> {}
     }
 }
