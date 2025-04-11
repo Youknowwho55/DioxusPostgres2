@@ -1,11 +1,11 @@
+#![allow(non_snake_case)]
 
 use dioxus::prelude::*;
+use views::{Blog, Home, Navbar, Dashboard};
 
-use views::{Blog, Home, Navbar, Dashboard, TestHeader};
 use assets::Assets;
 use dioxus_desktop::{WindowBuilder, Config, LogicalSize};
 
-mod components;
 mod views;
 
 #[derive(Debug, Clone, Routable, PartialEq)]
@@ -22,17 +22,16 @@ enum Route {
 
         #[route("/dashboard")]
         Dashboard {},
-        #[route("/test")]
-        TestHeader {},
+
 }
+
+
 
 
 fn main() {
     dioxus::launch(App);
 
 }
-
-
 
 
 #[component]

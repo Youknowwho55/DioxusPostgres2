@@ -2,6 +2,8 @@ use crate::Route;
 use dioxus::prelude::*;
 
 /// The Blog page component that will be rendered when the current route is `[Route::Blog]`
+#[allow(non_snake_case)]
+
 #[component]
 pub fn Blog(id: i32) -> Element {
     rsx! {

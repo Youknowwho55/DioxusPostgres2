@@ -3207,6 +3207,7 @@ dependencies = [
  "components",
  "dioxus",
  "dioxus-desktop",
+ "shared",
 ]
 
 [[package]]
@@ -4171,6 +4172,7 @@ dependencies = [
 name = "shared"
 version = "0.1.0"
 dependencies = [
+ "dioxus",
  "serde",
  "sqlx",
 ]

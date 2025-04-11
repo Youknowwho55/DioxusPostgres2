@@ -1,7 +1,10 @@
 use crate::Route;
 use dioxus::prelude::*;
+use components::ui::AvatarDrop;
 
 /// The Navbar component that will be rendered on all pages of our app
+#[allow(non_snake_case)]
+
 #[component]
 pub fn Navbar() -> Element {
     rsx! {
@@ -29,12 +32,8 @@ pub fn Navbar() -> Element {
                         class: "hover:text-blue-400 transition",
                         "Dashboard"
                     }
-                    Link {
-                        to: Route::TestHeader {},
-                        class: "hover:text-blue-400 transition",
-                        {}
-                        "test"
-                    }
+
+                    AvatarDrop {}
                 }
             }
         }

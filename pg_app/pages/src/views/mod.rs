@@ -1,4 +1,4 @@
-
+// pg_app/pages/src/views/mod.rs
 mod home;
 pub use home::Home;
 
@@ -12,5 +12,6 @@ mod dashboard;
 pub use dashboard::Dashboard;
 
 
-mod test_header;
-pub use test_header::TestHeader;
+
+
+

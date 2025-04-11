@@ -1,4 +1,3 @@
-use crate::components::Echo;
 use dioxus::prelude::*;
 use components::db::{AddPost, Posts};
 use components::ui::Button;
@@ -35,7 +34,6 @@ pub fn Home() -> Element {
             input_type: Some(InputType::File), // Passing the enum variant here
             label: Some("Upload".to_string()),
         }
-        Echo {}
     }
 }
 
