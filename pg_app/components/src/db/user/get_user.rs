@@ -11,7 +11,7 @@ use crate::db::Post;
 pub fn Users() -> Element {
     let resource = use_resource(|| async {
         match get_user().await {
-            Ok(users) => *POSTS.write() = users,
+            Ok(users) => *USERS.write() = users,
             Err(err) => tracing::error!("get all user error: {err}"),
         }
     });

@@ -20,12 +20,12 @@ impl Post {
 
 use sqlx::Type;
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Type)]
-#[sqlx(type_name = "text")] // tells SQLx how to treat this
-#[serde(rename_all = "snake_case")] // for consistency in JSON (optional)
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Type)]
+#[sqlx(type_name = "user_role", rename_all = "lowercase")]
 pub enum UserRole {
+    Admin,
     LoanOfficer,
-    LoanProcessor,
+    Processor,
 }
 
 
