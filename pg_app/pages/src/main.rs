@@ -1,7 +1,7 @@
 
 use dioxus::prelude::*;
 
-use views::{Blog, Home, Navbar};
+use views::{Blog, Home, Navbar, Dashboard, TestHeader};
 use assets::Assets;
 use dioxus_desktop::{WindowBuilder, Config, LogicalSize};
 
@@ -19,6 +19,11 @@ enum Route {
 
         #[route("/blog/:id")]
         Blog { id: i32 },
+
+        #[route("/dashboard")]
+        Dashboard {},
+        #[route("/test")]
+        TestHeader {},
 }
 
 

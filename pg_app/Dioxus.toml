@@ -1,5 +1,12 @@
 [application]
+name = "pg_app"
 
+[bundle]
+identifier = "com.dioxuslabs"
+publisher = "Youknowwho55"
+icon = ["assets/icon.png"]
+#pg_app/assets/icon.png
+#pg_app/pages/src/main.rs
 [web.app]
 
 # HTML title tag content
@@ -19,3 +26,6 @@ script = []
 # Javascript code file
 # serve: [dev-server] only
 script = []
+
+
+

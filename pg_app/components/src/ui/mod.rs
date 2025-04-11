@@ -5,6 +5,7 @@ pub mod card;
 pub mod inline_form;
 pub mod steps;
 pub mod hero;
+pub mod avatar;
 
 // Re-export from button module
 pub use button::{Button, ButtonSize, ButtonScheme, ButtonType};
@@ -19,3 +20,5 @@ pub use inline_form::{InlineForm, InlineFormProps};
 pub use steps::Steps;
 
 pub use hero::Hero;
+
+pub use avatar::Avatar;

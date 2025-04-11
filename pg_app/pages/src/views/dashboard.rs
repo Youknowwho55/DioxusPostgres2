@@ -11,7 +11,7 @@ use components::ui::InputType;
 
 /// The Home page component that will be rendered when the current route is `[Route::Home]`
 #[component]
-pub fn Home() -> Element {
+pub fn Dashboard() -> Element {
     let handle_click = move |_| {
         println!("Button clicked!");
     };
@@ -35,7 +35,6 @@ pub fn Home() -> Element {
             input_type: Some(InputType::File), // Passing the enum variant here
             label: Some("Upload".to_string()),
         }
-        Echo {}
     }
 }
 

@@ -42,9 +42,6 @@ sqlx migrate revert
 
 sqlx migrate run
 
-dx serve --package web --features db
-dx serve --package web --features server/db
-
 ## Using PSQL
 
 Terminal that can help run SQL commands. Comes when we download PG Admin
@@ -88,3 +85,7 @@ id SERIAL PRIMARY KEY,
 title TEXT NOT NULL,
 body TEXT NOT NULL
 );
+
+dx bundle --platform desktop \
+ --package-types "macos" \
+ --package-types "dmg"

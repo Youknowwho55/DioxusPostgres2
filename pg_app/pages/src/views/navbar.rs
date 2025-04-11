@@ -16,13 +16,24 @@ pub fn Navbar() -> Element {
                     Link {
                         to: Route::Home {},
                         class: "hover:text-blue-400 transition",
-                        "🏠 Home"
+                        "Home"
                     }
 
                     Link {
                         to: Route::Blog { id: 1 },
                         class: "hover:text-blue-400 transition",
-                        "📝 Blog"
+                        "Blog"
+                    }
+                    Link {
+                        to: Route::Dashboard {},
+                        class: "hover:text-blue-400 transition",
+                        "Dashboard"
+                    }
+                    Link {
+                        to: Route::TestHeader {},
+                        class: "hover:text-blue-400 transition",
+                        {}
+                        "test"
                     }
                 }
             }

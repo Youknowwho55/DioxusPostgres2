@@ -8,6 +8,8 @@ pub enum InputType {
     Number,
     Email,
     Password,
+    File,
+
 }
 
 impl InputType {
@@ -17,6 +19,8 @@ impl InputType {
             InputType::Number => "number",
             InputType::Email => "email",
             InputType::Password => "password",
+            InputType::File => "file",
+
         }
     }
 }
@@ -79,19 +83,21 @@ pub fn Input(props: InputProps) -> Element {
 
     let input_class = format!("{} {}", input_type, input_size);
 
+    let label_class = props.label_class.clone().unwrap_or_else(|| "text-sm font-medium text-blue-900".to_string());
     rsx!(
+
         match (props.label, props.required) {
             (Some(l), Some(_)) => rsx! {
-                label { class: props.label_class, "{l} *" }
+                label { class: "{label_class}", "{l} *" }
             },
             (Some(l), None) => rsx! {
-                label { class: props.label_class, "{l}" }
+                label { class: "{label_class}", "{l}" }
             },
             (None, _) => rsx! {},
         }
         input {
             id: props.id,
-            class: "input m-2 input-bordered {input_class}",
+            class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 input m-2 input-bordered {input_class}",
             value: props.value,
             required: props.required,
             disabled: props.disabled,
@@ -204,6 +210,26 @@ pub fn SelectInput(
             for (value , display) in options {
                 option { value, "{display}" }
             }
+        }
+    }
+}
+
+
+#[component]
+pub fn FileInput(
+    i_value: String,
+    i_placeholder: Option<String>,
+    on_input: EventHandler<FormEvent>,
+    class: Option<String>,
+) -> Element {
+    let i_placeholder = i_placeholder.unwrap_or_else(|| "".to_string());
+    rsx! {
+        input {
+            r#type: "file",
+            value: "{i_value}",
+            class: "input-primary block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400",
+            placeholder: "{i_placeholder}",
+            oninput: move |event| on_input.call(event),
         }
     }
 }
