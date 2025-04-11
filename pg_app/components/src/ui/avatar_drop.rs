@@ -10,15 +10,11 @@ pub fn AvatarDrop() -> Element {
     };
 
     rsx!(
-        div { class: "flex justify-end items-center p-4",
+        div { class: "flex justify-end items-center ",
             div { class: "relative",
                 // Make the Avatar clickable
-                div { onclick: toggle_dropdown, class: "cursor-pointer",
-                    Avatar {
-                        src: "/path/to/avatar.jpg".to_string(),
-                        alt: Some("User profile".to_string()),
-                    }
-                }
+                div { onclick: toggle_dropdown, class: "cursor-pointer", Avatar {
+                } }
 
                 // Dropdown menu that appears when show_dropdown is true
                 if show_dropdown() {

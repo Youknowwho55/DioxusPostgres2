@@ -16,3 +16,50 @@ impl Post {
         }
     }
 }
+
+
+use sqlx::Type;
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Type)]
+#[sqlx(type_name = "text")] // tells SQLx how to treat this
+#[serde(rename_all = "snake_case")] // for consistency in JSON (optional)
+pub enum UserRole {
+    LoanOfficer,
+    LoanProcessor,
+}
+
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, sqlx::FromRow)]
+pub struct User {
+    pub id: i32,
+    pub username: String,
+    pub first_name: String,
+    pub last_name: String,
+    pub email: String,
+    pub password: String,
+    pub role: UserRole,
+    pub is_active: bool,
+}
+
+impl User {
+    pub fn new(
+        id: i32,
+        username: String,
+        first_name: String,
+        password: String,
+        last_name: String,
+        email: String,
+        role: UserRole,
+    ) -> Self {
+        Self {
+            id,
+            username,
+            first_name,
+            last_name,
+            email,
+            password,
+            role,
+            is_active: true,
+        }
+    }
+}

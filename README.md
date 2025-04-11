@@ -1,5 +1,7 @@
 <!-- @format -->
 
+dx serve --platform desktop
+
 # DioxusPostgres2
 
 The other file was all a makerfile. Re-doing
