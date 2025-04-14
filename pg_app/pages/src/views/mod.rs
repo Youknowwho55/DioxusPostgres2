@@ -6,12 +6,11 @@ mod blog;
 pub use blog::Blog;
 
 mod navbar;
-pub use navbar::Navbar;
 
 mod dashboard;
 pub use dashboard::Dashboard;
 
-
+pub mod layout;
 
 
 

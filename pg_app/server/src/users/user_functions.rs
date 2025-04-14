@@ -5,17 +5,7 @@ use sqlx::{PgPool, FromRow};
 use tokio::sync::OnceCell;
 use dotenv::dotenv;
 use std::env;
-use tracing::info;
 
-// Import these from argon2's re-export to avoid version conflicts
-use argon2::{
-    password_hash::{
-        rand_core::OsRng as ArgonOsRng,
-        SaltString
-    }, 
-    Argon2, 
-    PasswordHasher
-};
 
 static DB: OnceCell<PgPool> = OnceCell::const_new();
 
@@ -66,14 +56,7 @@ pub async fn create_user(
 ) -> Result<i32, ServerFnError> {
     let db = get_db().await;
 
-    // Use SaltString directly with the OsRng from argon2's dependency
-    let salt = SaltString::generate(&mut ArgonOsRng);
-    
-    // Fix the error handling with appropriate type annotation
-    let password_hash = Argon2::default()
-        .hash_password(password.as_bytes(), &salt)
-        .map_err(|e| ServerFnError::<String>::ServerError(e.to_string()))?
-        .to_string();
+
 
     let row = sqlx::query!(
         r#"
@@ -85,7 +68,7 @@ pub async fn create_user(
         last_name,
         username,
         email,
-        password_hash,
+        password,
         role as UserRole,
         is_active
     )
@@ -123,15 +106,6 @@ pub async fn update_user(
 ) -> Result<(), ServerFnError> {
     let db = get_db().await;
 
-    // Use SaltString directly with the OsRng from argon2's dependency
-    let salt = SaltString::generate(&mut ArgonOsRng);
-    
-    // Fix the error handling with appropriate type annotation
-    let password_hash = Argon2::default()
-        .hash_password(password.as_bytes(), &salt)
-        .map_err(|e| ServerFnError::<String>::ServerError(e.to_string()))?
-        .to_string();
-
     let result = sqlx::query!(
         r#"
         UPDATE users
@@ -149,7 +123,7 @@ pub async fn update_user(
         last_name,
         username,
         email,
-        password_hash,
+        password,
         role as UserRole,
         is_active,
         id

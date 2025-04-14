@@ -15,7 +15,8 @@ pub fn Home() -> Element {
         println!("Button clicked!");
     };
     rsx! {
-        div { class: "flex flex-col justify-center items-center", AddPost {} }
+
+        div { class: "flex flex-col justify-center pt-2 mt-2 items-center", AddPost {} }
         div { class: " flex flex-col justify-center items-center", Posts {} }
         Button {
             button_scheme: ButtonScheme::Success,

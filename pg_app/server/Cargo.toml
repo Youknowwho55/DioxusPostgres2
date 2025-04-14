@@ -7,9 +7,9 @@ edition = "2024"
 [dependencies]
 dioxus = { workspace = true, features = ["fullstack"] }
 shared = { workspace = true }
-rand = "0.9.0"
 argon2 = "0.5.3"
-
+rand_core = "0.9.3"
+rand = "0.9.0"
 dotenv = "0.15.0"
 tokio = { version = "1.44.2", features = [
   "parking_lot",
