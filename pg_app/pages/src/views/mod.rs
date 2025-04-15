@@ -12,5 +12,7 @@ pub use dashboard::Dashboard;
 
 pub mod layout;
 
+mod random;
+pub use random::Random;
 
 

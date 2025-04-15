@@ -1,6 +1,6 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
-use views::{Blog, Home, Dashboard}; // Removed Navbar from imports since it's used in layout
+use views::{Blog, Home, Dashboard, Random}; // Removed Navbar from imports since it's used in layout
 use views::layout::AppLayout;
 use assets::Assets;
 
@@ -18,6 +18,8 @@ enum Route {
     
     #[route("/dashboard")]
     Dashboard {},
+    #[route("/random")]
+    Random {},
 }
 
 fn main() {

@@ -62,6 +62,7 @@ pub struct InputProps {
     pub required: Option<bool>,
     pub disabled: Option<bool>,
     pub readonly: Option<bool>,
+    pub oninput: Option<EventHandler<FormEvent>>, // Add this line
 }
 
 #[component]
@@ -71,21 +72,17 @@ pub fn Input(props: InputProps) -> Element {
     } else {
         Default::default()
     };
-
     let input_size = if props.input_size.is_some() {
         props.input_size.unwrap()
     } else {
         Default::default()
     };
-
     let input_type = input_type.to_string();
     let input_size = input_size.to_string();
-
     let input_class = format!("{} {}", input_type, input_size);
-
     let label_class = props.label_class.clone().unwrap_or_else(|| "text-sm font-medium text-blue-900".to_string());
+    
     rsx!(
-
         match (props.label, props.required) {
             (Some(l), Some(_)) => rsx! {
                 label { class: "{label_class}", "{l} *" }
@@ -106,6 +103,11 @@ pub fn Input(props: InputProps) -> Element {
             placeholder: props.placeholder,
             step: props.step,
             "type": "{input_type}",
+            oninput: move |e| {
+                if let Some(handler) = &props.oninput {
+                    handler.call(e)
+                }
+            }, // Add this line
         }
         if let Some(l) = props.help_text {
             label {

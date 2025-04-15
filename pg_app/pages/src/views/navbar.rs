@@ -26,6 +26,11 @@ pub fn Navbar() -> Element {
                         class: "hover:text-blue-400 transition",
                         "Dashboard"
                     }
+                    Link {
+                        to: Route::Random {},
+                        class: "hover:text-blue-400 transition",
+                        "Random"
+                    }
                     AvatarDrop {}
                 }
             }

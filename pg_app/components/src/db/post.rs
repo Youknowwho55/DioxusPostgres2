@@ -1,6 +1,9 @@
 use dioxus::{
     logger::{self, tracing}, prelude::*
 };
+use crate::ui::input::{Input, InputProps, InputType};
+use crate::ui::button::{Button, ButtonScheme};
+
 use server::server_functions::{delete_post, update_post};
 static POSTS: GlobalSignal<Vec<models::Post>> = GlobalSignal::new(Vec::new);
 use shared::models;
@@ -13,18 +16,34 @@ pub fn Post(post: models::Post) -> Element {
     rsx! {
         div { class: "my-1",
 
-            input {
-                class: "border p-2 rounded-sm mx-2",
-                name: "title",
-                value: "{title}",
-                oninput: move |event| title.set(event.value()),
+            Input {
+                name: "title".to_string(),
+                input_type: Some(InputType::Text),
+                placeholder: Some("Title".to_string()),
+                value: Some(title()),
+                label: Some("Post Title".to_string()),
+                oninput: move |event: FormEvent| title.set(event.value()), // Add the type annotation here
             }
-            input {
-                class: "border p-2 rounded-sm mx-2",
-                name: "body",
-                value: "{body}",
-                oninput: move |event| body.set(event.value()),
+            // input {
+            //     class: "border p-2 rounded-sm mx-2",
+            //     name: "title",
+            //     value: "{title}",
+            //     oninput: move |event| title.set(event.value()),
+            // }
+            Input {
+                name: "body".to_string(),
+                input_type: Some(InputType::Text),
+                placeholder: Some("Title".to_string()),
+                value: Some(body()),
+                label: Some("Post Title".to_string()),
+                oninput: move |event: FormEvent| body.set(event.value()), // Add the type annotation here
             }
+            // input {
+            //     class: "border p-2 rounded-sm mx-2",
+            //     name: "body",
+            //     value: "{body}",
+            //     oninput: move |event| body.set(event.value()),
+            // }
             button {
                 class: "border p-1 rounded-sm mx-3",
                 onclick: move |_| async move {
