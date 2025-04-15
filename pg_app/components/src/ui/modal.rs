@@ -8,7 +8,7 @@ pub struct ModalProps {
     submit_action: Option<String>,
     class: Option<String>,
     size: Option<ModalSize>,
-    open: Signal<bool>,
+    open: Signal<bool>,  // Changed from use_signal<bool> to Signal<bool>
     close_on_backdrop: Option<bool>,
     close_button: Option<bool>,
 }
@@ -22,7 +22,7 @@ pub enum ModalSize {
 }
 
 #[component]
-pub fn Modal(props: ModalProps) -> Element {
+pub fn Modal(mut props: ModalProps) -> Element {
     let size_class = match props.size.unwrap_or(ModalSize::Medium) {
         ModalSize::Small => "max-w-sm",
         ModalSize::Medium => "max-w-md",
@@ -32,10 +32,10 @@ pub fn Modal(props: ModalProps) -> Element {
     
     let close_on_backdrop = props.close_on_backdrop.unwrap_or(true);
     let close_button = props.close_button.unwrap_or(true);
-    let open = props.open.read();
+    let is_open = *props.open.read();  // Correct way to read the signal value
     
     let base_class = "fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center p-4 z-50";
-    let display_class = if *open { "block" } else { "hidden" };
+    let display_class = if is_open { "block" } else { "hidden" };
     let class = format!("{} {} {}", base_class, display_class, props.class.clone().unwrap_or_default());
     
     let modal_id = props.id.clone();
@@ -46,13 +46,20 @@ pub fn Modal(props: ModalProps) -> Element {
                 div {
                     class: "{class}",
                     id: "{props.id}",
-                    // Close modal when clicking outside if enabled
                     onclick: move |event| {
                         if close_on_backdrop {
-                            if let Some(element) = event.target().element() {
+                            #[cfg(target_family = "wasm")]
+                            if let Some(element) = event
+                                .web_event()
+                                .and_then(|e| e.target().dyn_into::<web_sys::Element>().ok())
+                            {
                                 if element.id() == modal_id {
                                     props.open.set(false);
                                 }
+                            }
+                            #[cfg(not(target_family = "wasm"))]
+                            {
+                                props.open.set(false);
                             }
                         }
                     },
@@ -73,9 +80,8 @@ pub fn Modal(props: ModalProps) -> Element {
                                     class: "h-5 w-5",
                                     xmlns: "http://www.w3.org/2000/svg",
                                     fill: "none",
-                                    viewBox: "0 0 24 24",
+                                    view_box: "0 0 24 24",
                                     stroke: "currentColor",
-                                    aria_hidden: "true",
                                     path {
                                         stroke_linecap: "round",
                                         stroke_linejoin: "round",
@@ -95,13 +101,20 @@ pub fn Modal(props: ModalProps) -> Element {
             div {
                 class: "{class}",
                 id: "{props.id}",
-                // Close modal when clicking outside if enabled
                 onclick: move |event| {
                     if close_on_backdrop {
-                        if let Some(element) = event.target().element() {
+                        #[cfg(target_family = "wasm")]
+                        if let Some(element) = event
+                            .web_event()
+                            .and_then(|e| e.target().dyn_into::<web_sys::Element>().ok())
+                        {
                             if element.id() == modal_id {
                                 props.open.set(false);
                             }
+                        }
+                        #[cfg(not(target_family = "wasm"))]
+                        {
+                            props.open.set(false);
                         }
                     }
                 },
@@ -122,9 +135,8 @@ pub fn Modal(props: ModalProps) -> Element {
                                 class: "h-5 w-5",
                                 xmlns: "http://www.w3.org/2000/svg",
                                 fill: "none",
-                                viewBox: "0 0 24 24",
+                                view_box: "0 0 24 24",
                                 stroke: "currentColor",
-                                aria_hidden: "true",
                                 path {
                                     stroke_linecap: "round",
                                     stroke_linejoin: "round",

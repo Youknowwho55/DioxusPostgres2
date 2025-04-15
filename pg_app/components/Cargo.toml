@@ -1,4 +1,5 @@
 # components/Cargo.toml
+# pg_app/components/Cargo.toml
 [package]
 name = "components"
 version = "0.1.0"
@@ -11,6 +12,17 @@ path = "src/lib.rs"  # This tells Cargo where to find the library
 server = { path = "../server" }
 shared = { path = "../shared" }
 log = "0.4.27"
+chrono = { version = "0.4.40", features = ["clock"] }
+dioxus = { version = "0.6.3", features = ["desktop"] }  # Correct format
 
-dioxus = { version = "0.6" }
-# Add any other dependencies your components need
+tokio = { version = "1.0", features = ["time"] }  # Always included
+wasm-bindgen-futures = { version = "0.4", optional = true }
+web-sys = { version = "0.3", features = ["Window"], optional = true }
+
+[features]
+default = []
+web = ["dep:wasm-bindgen-futures", "dep:web-sys"]
+
+
+
+

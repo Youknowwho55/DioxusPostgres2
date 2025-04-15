@@ -1,10 +1,10 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
-use dioxus_router::prelude::*;  // Make sure to import this explicitly
-
-use views::{Blog, Home, Dashboard, Random, NotFound}; // Removed Navbar from imports since it's used in layout
+use dioxus_router::prelude::*;
+use views::{Blog, Home, Dashboard, Random, NotFound};
 use views::layout::AppLayout;
 use assets::Assets;
+use components::ui::toast::{ToastManager, ToastInfo, ToastFrame};
 
 mod views;
 
@@ -34,9 +34,13 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    let toast_manager = use_signal(|| ToastManager::default());
+    use_context_provider(|| toast_manager);  // Changed from use_shared_state_provider
+
     rsx! {
         style { "{Assets::TAILWIND_CSS}" }
         document::Title { "My Desktop Application" }
         Router::<Route> {}
+        ToastFrame { manager: toast_manager }
     }
 }

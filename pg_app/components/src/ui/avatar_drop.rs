@@ -3,7 +3,7 @@ use crate::ui::Avatar;
 
 #[component]
 pub fn AvatarDrop() -> Element {
-    let mut show_dropdown = use_signal(|| false);
+    let mut show_dropdown: Signal<bool> = use_signal(|| false);
 
     let toggle_dropdown = move |_| {
         show_dropdown.set(!show_dropdown());

@@ -1,21 +1,22 @@
 use dioxus::prelude::*;
 use components::db::{AddPost, Posts, Post};
 use components::ui::Button;
-use components::ui::{ButtonScheme, ButtonSize}; // Import enums if needed
+use components::ui::{ButtonScheme, ButtonSize};
 use components::ui::Input;
 use components::ui::InputType;
+use components::ui::toast::{ToastInfo, ToastManager}; // Added ToastManager
 
-
-
-
-/// The Home page component that will be rendered when the current route is `[Route::Home]`
+/// The Random page component
 #[component]
 pub fn Random() -> Element {
     let handle_click = move |_| {
         println!("Button clicked!");
     };
-    rsx! {
+    
+    // Get the toast manager from context
+    let mut toast_manager = use_context::<Signal<ToastManager>>();
 
+    rsx! {
         Button {
             button_scheme: ButtonScheme::Success,
             button_size: ButtonSize::Large,
@@ -30,13 +31,28 @@ pub fn Random() -> Element {
         }
         Input {
             name: "file".to_string(),
-            input_type: Some(InputType::File), // Passing the enum variant here
+            input_type: Some(InputType::File),
             label: Some("Upload".to_string()),
         }
+        button {
+            class: "px-4 py-2 bg-blue-500 text-white rounded",
+            onclick: move |_| {
+                toast_manager
+                    .write()
+                    .popup(ToastInfo::success("Operation completed!", Some("Success")));
+            },
+            "Show Toast Examples"
+        }
+
+        LoadingSpinner {
+            size: SpinnerSize::Large,
+            color: SpinnerColor::Primary,
+            variant: SpinnerVariant::Border,
+            label: Some("Processing...".to_string()),
+        }
+        // Simple spinner
+        LoadingSpinner {}
+        // Bouncing dots variant
+        LoadingSpinner { variant: SpinnerVariant::Dots, color: SpinnerColor::Success }
     }
 }
-
-
-
-
-
