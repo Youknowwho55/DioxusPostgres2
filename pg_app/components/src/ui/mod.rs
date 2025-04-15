@@ -24,10 +24,8 @@ pub use avatar_drop::AvatarDrop;
 pub use table::{Table, TableProps, TableHead, TableHeadProps, TableBody, TableBodyProps, TableRow, TableRowProps, TableCell, TableCellProps, TableHeaderCell, TableHeaderCellProps, TableFoot, TableFootProps};
 pub use toast::{ToastFrame, ToastFrameProps, ToastManager, ToastInfo, ToastScheme, ToastSize, Position};
 pub use loading_spinner::{
-    LoadingSpinner,
     SpinnerSize,
     SpinnerColor,
-    SpinnerVariant,
     SpinnerProps
 };
 // Optional prelude module for convenient imports

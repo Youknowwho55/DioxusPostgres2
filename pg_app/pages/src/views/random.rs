@@ -5,6 +5,8 @@ use components::ui::{ButtonScheme, ButtonSize};
 use components::ui::Input;
 use components::ui::InputType;
 use components::ui::toast::{ToastInfo, ToastManager}; // Added ToastManager
+use components::ui::loading_spinner::{Spinner, SpinnerSize, SpinnerColor}; // Added ToastManager
+
 
 /// The Random page component
 #[component]
@@ -44,15 +46,12 @@ pub fn Random() -> Element {
             "Show Toast Examples"
         }
 
-        LoadingSpinner {
+        Spinner { size: SpinnerSize::Small, color: SpinnerColor::Blue }
+        // Large red spinner with label
+        Spinner {
             size: SpinnerSize::Large,
-            color: SpinnerColor::Primary,
-            variant: SpinnerVariant::Border,
-            label: Some("Processing...".to_string()),
+            color: SpinnerColor::Red,
+            label: "Processing...",
         }
-        // Simple spinner
-        LoadingSpinner {}
-        // Bouncing dots variant
-        LoadingSpinner { variant: SpinnerVariant::Dots, color: SpinnerColor::Success }
     }
 }
