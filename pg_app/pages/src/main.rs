@@ -1,6 +1,8 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
-use views::{Blog, Home, Dashboard, Random}; // Removed Navbar from imports since it's used in layout
+use dioxus_router::prelude::*;  // Make sure to import this explicitly
+
+use views::{Blog, Home, Dashboard, Random, NotFound}; // Removed Navbar from imports since it's used in layout
 use views::layout::AppLayout;
 use assets::Assets;
 
@@ -9,7 +11,7 @@ mod views;
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]
 enum Route {
-    #[layout(AppLayout)] 
+    #[layout(AppLayout)]
     #[route("/")]
     Home {},
     
@@ -18,8 +20,12 @@ enum Route {
     
     #[route("/dashboard")]
     Dashboard {},
+    
     #[route("/random")]
     Random {},
+    
+    #[route("/:..segments")]
+    NotFound { segments: Vec<String> },
 }
 
 fn main() {

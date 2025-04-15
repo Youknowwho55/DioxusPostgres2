@@ -7,6 +7,9 @@ pub mod steps;
 pub mod hero;
 pub mod avatar;
 pub mod avatar_drop;
+pub mod table;
+pub mod modal;
+
 
 // Re-export from button module
 pub use button::{Button, ButtonSize, ButtonScheme, ButtonType};
@@ -24,3 +27,5 @@ pub use hero::Hero;
 
 pub use avatar::Avatar;
 pub use avatar_drop::AvatarDrop;
+pub use table::{Table, TableProps, TableHead, TableHeadProps, TableBody, TableBodyProps, TableRow, TableRowProps, TableCell, TableCellProps, TableHeaderCell, TableHeaderCellProps, TableFoot, TableFootProps};
+
