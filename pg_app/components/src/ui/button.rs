@@ -1,6 +1,5 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
-use std::ops::Range;
 
 #[derive(Default, Copy, Clone, Debug, PartialEq, Eq)]
 pub enum ButtonScheme {

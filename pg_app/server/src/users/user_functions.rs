@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use shared::models::{User, UserRole};
 
-use sqlx::{PgPool, FromRow};
+use sqlx::PgPool;
 use tokio::sync::OnceCell;
 use dotenv::dotenv;
 use std::env;

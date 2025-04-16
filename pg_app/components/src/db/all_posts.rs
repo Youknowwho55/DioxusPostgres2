@@ -1,6 +1,6 @@
 // pg_app/components/src/db/all_posts.rs
 use dioxus::{
-    logger::{self, tracing}, prelude::*
+    logger::tracing, prelude::*
 };
 use server::server_functions::get_all_posts;
 static POSTS: GlobalSignal<Vec<models::Post>> = GlobalSignal::new(Vec::new);

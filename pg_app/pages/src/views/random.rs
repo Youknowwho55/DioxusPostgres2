@@ -1,5 +1,4 @@
 use dioxus::prelude::*;
-use components::db::{AddPost, Posts, Post};
 use components::ui::Button;
 use components::ui::{ButtonScheme, ButtonSize};
 use components::ui::Input;

@@ -1,9 +1,7 @@
 use dioxus::prelude::*;
-use components::db::{AddPost, Posts, Post};
-use components::ui::Button;
-use components::ui::{ButtonScheme, ButtonSize}; // Import enums if needed
-use components::ui::Input;
-use components::ui::InputType;
+use components::db::{AddPost, Posts};
+
+
 
 
 

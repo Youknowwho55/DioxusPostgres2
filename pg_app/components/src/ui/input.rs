@@ -161,7 +161,7 @@ pub fn NumberInput(
     i_value: String,
     i_placeholder: Option<String>,
     on_input: EventHandler<FormEvent>,
-    class: Option<String>,
+    _class: Option<String>,
     i_min: Option<String>,
     i_max: Option<String>,
     i_step: Option<String>,

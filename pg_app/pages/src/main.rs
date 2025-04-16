@@ -1,10 +1,9 @@
 #![allow(non_snake_case)]
 use dioxus::prelude::*;
-use dioxus_router::prelude::*;
 use views::{Blog, Home, Dashboard, Random, NotFound};
 use views::layout::AppLayout;
 use assets::Assets;
-use components::ui::toast::{ToastManager, ToastInfo, ToastFrame};
+use components::ui::toast::{ToastManager, ToastFrame};
 
 mod views;
 

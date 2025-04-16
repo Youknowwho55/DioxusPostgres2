@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::inline_form::{InlineForm, InputSize, InputType}; // Ensure this import is correct
+use super::inline_form::InlineForm; // Ensure this import is correct
 
 // const HEADER_SVG: Asset = asset!("/assets/header.svg");
 

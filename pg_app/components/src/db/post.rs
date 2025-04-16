@@ -1,8 +1,8 @@
 // pg_app/components/src/db/post.rs
 use dioxus::{
-    logger::{self, tracing}, prelude::*
+    logger:: tracing, prelude::*
 };
-use crate::ui::input::{Input, InputProps, InputType};
+use crate::ui::input::{Input,InputType};
 use crate::ui::button::{Button, ButtonScheme};
 
 use server::server_functions::{delete_post, update_post};

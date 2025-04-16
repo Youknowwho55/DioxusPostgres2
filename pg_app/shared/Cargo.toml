@@ -4,16 +4,40 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-serde = "1.0.217"
+# Core serialization
+serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0"
 
-sqlx = { version = "0.8.3", features = ["runtime-tokio-native-tls", "postgres"] }
-dioxus = "0.6.3"
+# Database
+sqlx = { version = "0.8.3", features = [
+    "runtime-tokio-native-tls",
+    "postgres",
+    "chrono",
+    "uuid",
+    "json"
+]}
+
+# UI Framework
+dioxus = { version = "0.6.3", optional = true }
+
+# Validation
 validator = { version = "0.20", features = ["derive"] }
+
+# Utilities
 regex = "1.9"
 lazy_static = "1.4"
-chrono = { version = "0.4", features = ["serde"] }
-strum = { version = "0.27.1", features = ["derive"] }
+chrono = { version = "0.4", features = ["serde", "clock"] }
+
+# Enum utilities (ensure enum_iter feature is enabled)
+strum = { version = "0.27.1", features = ["derive"] }  # Note the hyphen
+
+# Security
 sha2 = "0.10"
 bcrypt = "0.17"
+
+# Error handling
 thiserror = "2.0.12"
+
+[features]
+# Optional frontend support
+frontend = ["dioxus"]
