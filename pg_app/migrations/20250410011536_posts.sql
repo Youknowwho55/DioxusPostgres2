@@ -1,6 +1,0 @@
--- Add migration script here
-CREATE TABLE posts (
-id SERIAL PRIMARY KEY,
-title TEXT NOT NULL,
-body TEXT NOT NULL
-);

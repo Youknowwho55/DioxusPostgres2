@@ -39,9 +39,12 @@ sqlx database create
 sqlx database drop
 
 sqlx migrate add <name>
+
+mkdir -p migrations/20250420000000_create_posts
+touch migrations/20250420000000_create_posts/{up.sql,down.sql}
+
 sqlx migrate run
 sqlx migrate revert
-
 sqlx migrate run
 
 ## Using PSQL

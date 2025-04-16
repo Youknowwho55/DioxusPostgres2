@@ -1,3 +1,4 @@
+// pg_app/components/src/db/post.rs
 use dioxus::{
     logger::{self, tracing}, prelude::*
 };
@@ -14,7 +15,7 @@ pub fn Post(post: models::Post) -> Element {
     let mut body = use_signal(|| post.body.clone());
 
     rsx! {
-        div { class: "my-1",
+        div { class: "my-1 flex flex-row items-center gap-2",
 
             Input {
                 name: "title".to_string(),
@@ -33,20 +34,16 @@ pub fn Post(post: models::Post) -> Element {
             Input {
                 name: "body".to_string(),
                 input_type: Some(InputType::Text),
-                placeholder: Some("Title".to_string()),
+                placeholder: Some("Body".to_string()),
                 value: Some(body()),
-                label: Some("Post Title".to_string()),
+                label: Some("Post Body".to_string()),
                 oninput: move |event: FormEvent| body.set(event.value()), // Add the type annotation here
             }
-            // input {
-            //     class: "border p-2 rounded-sm mx-2",
-            //     name: "body",
-            //     value: "{body}",
-            //     oninput: move |event| body.set(event.value()),
-            // }
-            button {
-                class: "border p-1 rounded-sm mx-3",
-                onclick: move |_| async move {
+
+
+            Button {
+                button_scheme: ButtonScheme::Default,
+                on_click: move |_| async move {
                     match update_post(post.id, title(), body()).await {
                         Ok(_) => {
                             if let Some(post) = POSTS.write().iter_mut().find(|t| t.id == post.id) {
@@ -59,9 +56,10 @@ pub fn Post(post: models::Post) -> Element {
                 },
                 "update"
             }
-            button {
-                class: "border p-1 rounded-sm",
-                onclick: move |_| async move {
+
+            Button {
+                button_scheme: ButtonScheme::Danger,
+                on_click: move |_| async move {
                     match delete_post(post.id).await {
                         Ok(_) => POSTS.write().retain(|t| t.id != post.id),
                         Err(err) => tracing::error!("delete post error: {err}"),
