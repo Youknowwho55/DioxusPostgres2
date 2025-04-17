@@ -1,18 +1,18 @@
-// pg_app/components/src/db/post.rs
 use dioxus::{
     logger::tracing, prelude::*
 };
 use crate::ui::input::{Input, InputType};
 use crate::ui::button::{Button, ButtonScheme};
-use server::server_functions::{delete_post, update_post};
+use server::server_functions::{delete_post, update_post, get_all_posts};
 use shared::models;
 use std::sync::Arc;
+
+static POSTS: GlobalSignal<Vec<models::Post>> = GlobalSignal::new(Vec::new);
 
 #[component]
 pub fn Post(post: models::Post) -> Element {
     // Get the refresh function from context
     let refresh_posts = use_context::<Arc<dyn Fn()>>();
-    
     let mut title = use_signal(|| post.title.clone());
     let mut body = use_signal(|| post.body.clone());
     
@@ -70,6 +70,55 @@ pub fn Post(post: models::Post) -> Element {
                 },
                 text: "Delete".to_string(),
             }
+        }
+    }
+}
+
+#[component]
+pub fn Posts() -> Element {
+    // Create a signal to trigger refreshes
+    let refresh_counter = Arc::new(std::sync::Mutex::new(0));
+    
+    // Single resource with refresh mechanism
+    let refresh_counter_clone = Arc::clone(&refresh_counter);
+    let resource = use_resource(move || {
+        let refresh_counter = Arc::clone(&refresh_counter_clone);
+        async move {
+            // The dependency on refresh_counter causes a refetch when it changes
+            let _ = *refresh_counter.lock().unwrap();
+            match get_all_posts().await {
+                Ok(posts) => *POSTS.write() = posts,
+                Err(err) => tracing::error!("get all post error: {err}"),
+            }
+        }
+    });
+    
+    // Function to trigger a refresh
+    let refresh_posts = {
+        let refresh_counter = Arc::clone(&refresh_counter);
+        move || {
+            let mut counter = refresh_counter.lock().unwrap();
+            *counter += 1;
+        }
+    };
+    
+    // Make refresh_posts available to other components
+    provide_context(Arc::new(refresh_posts) as Arc<dyn Fn()>);
+    
+    match resource() {
+        Some(_) if !POSTS().is_empty() => {
+            let posts_data = POSTS();
+            let posts = posts_data.iter().map(|post| {
+                rsx! {
+                    Post { key: "{post.id}", post: post.clone() }
+                }
+            });
+            rsx! {
+                div { {posts} }
+            }
+        }
+        _ => rsx! {
+            div { "No Posts Yet" }
         }
     }
 }

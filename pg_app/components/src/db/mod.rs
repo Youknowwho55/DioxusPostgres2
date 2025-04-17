@@ -1,7 +1,7 @@
 pub use add_post::AddPost;
-pub use all_posts::Posts;
-pub use post::Post;
+pub use post::{Post,Posts};
+pub use test_post::PostsContainer;
 
 pub mod add_post;  // Contains AddPost
 pub mod post;      // Contains Post
-pub mod all_posts;
+pub mod test_post;

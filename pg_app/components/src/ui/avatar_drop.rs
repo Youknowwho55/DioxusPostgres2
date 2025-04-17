@@ -1,6 +1,34 @@
 use dioxus::prelude::*;
 use crate::ui::Avatar;
 
+
+// #[derive(Debug, Clone, Routable, PartialEq)]
+// #[rustfmt::skip]
+// enum Route {
+//     #[layout(AppLayout)]
+//     #[route("/")]
+//     Home {},
+    
+//     #[route("/blog/:id")]
+//     Blog { id: i32 },
+    
+//     #[route("/dashboard")]
+//     Dashboard {},
+    
+//     #[route("/random")]
+//     Random {},
+    
+//     #[route("/:..segments")]
+//     NotFound { segments: Vec<String> },
+// }
+// Router::<Route> {}
+
+// Link {
+//     to: Route::Home {},
+//     class: "hover:text-blue-400 transition",
+//     "Home"
+// }
+
 #[component]
 pub fn AvatarDrop() -> Element {
     let mut show_dropdown: Signal<bool> = use_signal(|| false);
@@ -36,8 +64,8 @@ pub fn AvatarDrop() -> Element {
                                 }
                             }
                             li {
-                                a {
-                                    href: "#",
+                                Link {
+                                    to: Route::Settings {},
                                     class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white",
                                     "Settings"
                                 }

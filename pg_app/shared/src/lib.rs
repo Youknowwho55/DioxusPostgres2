@@ -10,7 +10,7 @@ pub mod models;
 pub mod validation;
 
 pub mod error;
-
+pub mod routes;
 
 // Re-exports for convenient access
 pub use dtos::*;

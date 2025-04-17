@@ -20,6 +20,9 @@ enum Route {
     #[route("/dashboard")]
     Dashboard {},
     
+    #[route("/settings")]
+    Settings {},
+    
     #[route("/random")]
     Random {},
     
