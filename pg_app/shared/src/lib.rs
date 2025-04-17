@@ -1,3 +1,4 @@
+// pg_app/shared/src/lib.rs
 //! Shared types and utilities across the application
 
 #![forbid(unsafe_code)]
@@ -9,8 +10,8 @@ pub mod models;
 /// Module for validation utilities and helpers
 pub mod validation;
 
+
 pub mod error;
-pub mod routes;
 
 // Re-exports for convenient access
 pub use dtos::*;

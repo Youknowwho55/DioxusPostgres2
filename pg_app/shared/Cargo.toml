@@ -19,7 +19,7 @@ sqlx = { version = "0.8", features = [
 ]}
 
 # UI Framework (now marked as optional)
-dioxus = { version = "0.6" }
+dioxus = { version = "0.6",  optional = true  }
 
 # Validation
 validator = { version = "0.20", features = ["derive"] }

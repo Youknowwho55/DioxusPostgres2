@@ -1,7 +1,9 @@
+// pg_app/components/src/layout/app_layout.rs
 use dioxus::prelude::*;
 use crate::Route;
-use crate::views::navbar::Navbar;
-use components::layout::Footer;
+
+use components::layout::footer::Footer;
+use components::layout::navbar::Navbar;
 
 #[component]
 pub fn AppLayout() -> Element {

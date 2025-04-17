@@ -1,3 +1,4 @@
+# pg_app/pages/Cargo.toml
 [package]
 name = "pages"
 version = "0.1.0"
@@ -11,6 +12,7 @@ path = "src/main.rs"
 components = { path = "../components" }  # Relative path to your components crate
 dioxus = { version = "0.6.3", features = ["router", "fullstack"] }
 dioxus-desktop = "0.6.3"
+shared = { path = "../shared", features = ["frontend"] }  
 
 
 # plus anything else you need

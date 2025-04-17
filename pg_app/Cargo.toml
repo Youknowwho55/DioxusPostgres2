@@ -8,6 +8,8 @@ members = [
     "components",
     "assets",
     "pages",
+    "routes",
+
 ]
 
 [workspace.dependencies]
@@ -17,6 +19,7 @@ dioxus = { version = "0.6.3" }
 assets = { path = "assets" }
 server = { path = "server" }
 shared = { path = "shared" }
+routes = { path = "routes" }
 
 
 

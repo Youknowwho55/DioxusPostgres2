@@ -1,34 +1,8 @@
+// pg_app/components/src/ui/avatar_drop.rs
 use dioxus::prelude::*;
 use crate::ui::Avatar;
-use shared::routes::Route;  // Import from your shared crate
+use super::routes::Route;  
 
-
-// #[derive(Debug, Clone, Routable, PartialEq)]
-// #[rustfmt::skip]
-// enum Route {
-//     #[layout(AppLayout)]
-//     #[route("/")]
-//     Home {},
-    
-//     #[route("/blog/:id")]
-//     Blog { id: i32 },
-    
-//     #[route("/dashboard")]
-//     Dashboard {},
-    
-//     #[route("/random")]
-//     Random {},
-    
-//     #[route("/:..segments")]
-//     NotFound { segments: Vec<String> },
-// }
-// Router::<Route> {}
-
-// Link {
-//     to: Route::Home {},
-//     class: "hover:text-blue-400 transition",
-//     "Home"
-// }
 
 #[component]
 pub fn AvatarDrop() -> Element {

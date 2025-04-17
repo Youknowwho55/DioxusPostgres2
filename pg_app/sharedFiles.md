@@ -4,11 +4,15 @@ Assets
 none
 
 Components
-shared = { path = "../shared" }
+shared = { path = "../shared", features = ["frontend"] }
+routes = { path = "../routes" }
 
 Pages
 components = { path = "../components" } # Relative path to your components crate
 shared = { path = "../shared" }
+
+Routes:
+components = { path = "../components" }
 
 Server
 shared = { workspace = true }
