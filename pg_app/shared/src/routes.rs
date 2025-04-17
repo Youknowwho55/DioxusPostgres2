@@ -1,15 +1,16 @@
+/// Solution 1: Trait-Based Routing (Recommended)
+
 use dioxus::prelude::*;
-use views::{Blog, Home, Dashboard, Random, NotFound, Settings};
+use dioxus_router::prelude::*;
 
 #[derive(Debug, Clone, Routable, PartialEq)]
-#[rustfmt::skip]
 pub enum Route {
     #[route("/")]
     Home {},
     
-    #[route("/blog/:id")]
+    #[route("/blog/:id")] 
     Blog { id: i32 },
-
+    
     #[route("/dashboard")]
     Dashboard {},
     
@@ -21,4 +22,22 @@ pub enum Route {
     
     #[route("/:..segments")]
     NotFound { segments: Vec<String> },
+}
+
+/// Trait for rendering route-aware components
+#[async_trait(?Send)]  // Enable async if needed
+pub trait PageRenderer {
+    fn home() -> Element;
+    fn blog( id: i32) -> Element;
+    fn dashboard() -> Element;
+    fn settings() -> Element;
+    fn random() -> Element;
+    fn not_found( segments: Vec<String>) -> Element;
+}
+
+/// Default router configuration
+pub fn router_config() -> RouterConfig<Route> {
+    RouterConfig::default()
+        // Add any custom config here
+        .history(MemoryHistory::default())
 }

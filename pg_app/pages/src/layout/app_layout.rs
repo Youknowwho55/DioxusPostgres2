@@ -1,6 +1,6 @@
 // client/components/layout/app_layout.rs
 use dioxus::prelude::*;
-use shared::Route;  // Only depends on `shared` (no cycle)
+use shared::Route; 
 
 #[component]
 pub fn AppLayout() -> Element {

@@ -6,15 +6,16 @@ members = [
     "server", 
     "shared",
     "components",
-    "assets",
     "pages",
-    ""src,
-
+    "app" 
 ]
+
+
 
 [workspace.dependencies]
 dioxus = { version = "0.6.3" }
-
+dioxus-web = "0.6.3"    # Add if needed
+dioxus-desktop = "0.6.3" # Add if needed
 # workspace
 assets = { path = "assets" }
 server = { path = "server" }
@@ -22,9 +23,9 @@ shared = { path = "shared" }
 
 
 
-[profile.wasm-dev]
-inherits = "dev"
-opt-level = 1
+#[profile.wasm-dev]
+#inherits = "dev"
+#opt-level = 1
 
 [profile.server-dev]
 inherits = "dev"

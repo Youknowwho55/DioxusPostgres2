@@ -14,3 +14,4 @@ pub fn Footer(children: Element) -> Element {
         }
     )
 }
+

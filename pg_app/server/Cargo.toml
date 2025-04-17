@@ -1,33 +1,44 @@
-# pg_app/server/Cargo.toml
 [package]
 name = "server"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-dioxus = { workspace = true, features = ["fullstack"] }
-shared = { path = "../shared", features = ["frontend"] }
+# Workspace dependencies (single declaration)
+shared = { path = "../shared", features = ["backend", "db"] }
 
-argon2 = "0.5.3"
-rand_core = "0.9.3"
-rand = "0.9.0"
-dotenv = "0.15.0"
-tokio = { version = "1.44.2", features = [
-  "parking_lot",
-  "rt-multi-thread",
-  "macros",
-], optional = true }
-sqlx = { version = "0.8.3", features = [
-  "runtime-tokio",
-  "tls-rustls",
-  "postgres",
-], optional = true }
+# Core runtime
+tokio = { version = "1.44", features = ["rt-multi-thread", "macros"] }
 
-tracing = "0.1.41"
-tracing-subscriber = "0.3.19"
-getrandom = { version = "0.3.2", features = ["wasm_js"] }
+# Observability
+tracing = "0.1"
+tracing-subscriber = "0.3"
 
+# Auth
+argon2 = "0.5"
+rand = { version = "0.9", features = ["std_rng"] }
+rand_core = "0.9"
+
+# Configuration
+dotenv = "0.15"
+
+# Database (feature-gated)
+sqlx = { version = "0.8", optional = true, features = [
+    "runtime-tokio",
+    "postgres",
+    "tls-rustls",
+    "migrate"
+]}
+
+# SSR
+dioxus = { workspace = true, features = ["ssr"] }
 
 [features]
-default = ["db"]
-db = ["tokio", "sqlx"]
+default = ["database"]
+database = ["dep:sqlx", "shared/db"]
+
+[build-dependencies]
+sqlx = { version = "0.8", features = [
+    "postgres", 
+    "migrate"
+]}

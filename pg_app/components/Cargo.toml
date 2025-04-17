@@ -1,31 +1,22 @@
-# components/Cargo.toml
-# pg_app/components/Cargo.toml
 [package]
 name = "components"
 version = "0.1.0"
 edition = "2024"
 
 [lib]
-path = "src/lib.rs"  # This tells Cargo where to find the library
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-shared = { path = "../shared", features = ["frontend"] }
-server = { path = "../server" }
-routes = { path = "../routes" }
+dioxus = { version = "0.6.3" }  # Keep as required dep
+dioxus-desktop = { version = "0.6.3", optional = true }  # Now optional
 
-
-log = "0.4.27"
-chrono = { version = "0.4.40", features = ["clock"] }
-dioxus = { version = "0.6.3", features = ["desktop"] }  # Correct format
-tracing = "0.1.41"
-tokio = { version = "1.0", features = ["time"] }  # Always included
-wasm-bindgen-futures = { version = "0.4", optional = true }
-web-sys = { version = "0.3", features = ["Window"], optional = true }
+# Platform-specific
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen-futures = "0.4"
+web-sys = { version = "0.3", features = ["Window"] }
 
 [features]
 default = []
-web = ["dep:wasm-bindgen-futures", "dep:web-sys"]
-
-
-
-
+#web = ["dep:wasm-bindgen-futures", "dep:web-sys"]
+desktop = ["dep:dioxus-desktop"]  # Proper feature declaration

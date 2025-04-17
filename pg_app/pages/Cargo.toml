@@ -1,26 +1,27 @@
-# pg_app/pages/Cargo.toml
 [package]
 name = "pages"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
-[[bin]]
+[lib]
 name = "pages"
 path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-components = { path = "../components" }  # Relative path to your components crate
-dioxus = { version = "0.6.3", features = ["router", "fullstack"] }
-dioxus-desktop = "0.6.3"
-shared = { path = "../shared", features = ["frontend"] }  
+# Workspace dependencies
+dioxus = { workspace = true, features = ["router"] }
+dioxus-web = { workspace = true }
+shared = { workspace = true, features = ["frontend"] }
+components = { path = "../components" }
 
+# Platform-specific (mark desktop as optional)
+dioxus-desktop = { workspace = true, optional = true }  # Added optional=true
 
-# plus anything else you need
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+# WASM-specific dependencies here
 
-
-assets = { workspace = true }
-
-[package.metadata.bundle]
-name = "YourAppName"
-identifier = "com.yourdomain.yourapp"
-icon = ["../assets/icon.png"]
+[features]
+default = ["desktop"]
+web = ["dioxus/web"]
+desktop = ["dioxus/desktop", "dep:dioxus-desktop"]  # Uses dep: prefix

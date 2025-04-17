@@ -1,0 +1,16 @@
+[package]
+name = "app"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "app"
+path = "src/main.rs"  # Ensure this path exists
+
+[dependencies]
+dioxus = { workspace = true }
+dioxus-desktop = { workspace = true }  # For desktop
+dioxus-web = { workspace = true }      # For web (optional)
+pages = { path = "../pages" }
+components = { path = "../components" }
+shared = { path = "../shared", features = ["frontend"] }
