@@ -1,9 +1,6 @@
-// pg_app/components/src/layout/app_layout.rs
+// client/components/layout/app_layout.rs
 use dioxus::prelude::*;
-use crate::Route;
-
-use components::layout::footer::Footer;
-use components::layout::navbar::Navbar;
+use shared::Route;  // Only depends on `shared` (no cycle)
 
 #[component]
 pub fn AppLayout() -> Element {
@@ -11,7 +8,7 @@ pub fn AppLayout() -> Element {
         div { class: "flex flex-col min-h-screen",
             Navbar {}
             main { class: "flex-1 bg-gray-50",
-                div { class: "container  mx-auto px-4 py-6", Outlet::<Route> {} }
+                div { class: "container mx-auto px-4 py-6", Outlet::<Route> {} // Renders the matched route }
             }
             Footer {}
         }

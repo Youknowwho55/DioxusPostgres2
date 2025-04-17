@@ -5,12 +5,10 @@ pub use home::Home;
 mod blog;
 pub use blog::Blog;
 
-mod navbar;
 
 mod dashboard;
 pub use dashboard::Dashboard;
 
-pub mod layout;
 
 mod random;
 pub use random::Random;

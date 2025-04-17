@@ -1,6 +1,8 @@
-use routes::Route; 
+// pg_app/components/src/layout/navbar.rs
+use shared::Route; 
 use dioxus::prelude::*;
-use components::ui::AvatarDrop;
+// pg_app/components/src/ui/avatar_drop.rs
+use crate::ui::avatar_drop::AvatarDrop;
 
 /// The Navbar component that will be rendered on all pages of our app
 #[allow(non_snake_case)]

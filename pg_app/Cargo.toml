@@ -8,7 +8,7 @@ members = [
     "components",
     "assets",
     "pages",
-    "routes",
+    ""src,
 
 ]
 
@@ -19,7 +19,6 @@ dioxus = { version = "0.6.3" }
 assets = { path = "assets" }
 server = { path = "server" }
 shared = { path = "shared" }
-routes = { path = "routes" }
 
 
 

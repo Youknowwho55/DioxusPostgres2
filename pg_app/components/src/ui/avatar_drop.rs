@@ -1,7 +1,7 @@
 // pg_app/components/src/ui/avatar_drop.rs
 use dioxus::prelude::*;
 use crate::ui::Avatar;
-use super::routes::Route;  
+// use super::routes::Route;  
 
 
 #[component]
@@ -39,8 +39,8 @@ pub fn AvatarDrop() -> Element {
                                 }
                             }
                             li {
-                                Link {
-                                    to: Route::Settings {},
+                                a {
+                                    href: "#",
                                     class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white",
                                     "Settings"
                                 }

@@ -11,6 +11,7 @@ path = "src/lib.rs"  # This tells Cargo where to find the library
 [dependencies]
 shared = { path = "../shared", features = ["frontend"] }
 server = { path = "../server" }
+routes = { path = "../routes" }
 
 
 log = "0.4.27"

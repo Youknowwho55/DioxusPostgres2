@@ -6,7 +6,7 @@ edition = "2021"
 
 [[bin]]
 name = "pages"
-path = "src/main.rs"
+path = "src/lib.rs"
 
 [dependencies]
 components = { path = "../components" }  # Relative path to your components crate
