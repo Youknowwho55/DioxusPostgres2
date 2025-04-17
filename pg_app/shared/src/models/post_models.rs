@@ -31,8 +31,7 @@ use super::user_models::User;
 ///     body: "This is the content...".into(),
 ///     created_at: Some(Utc::now()),
 ///     updated_at: None,
-///     is_published: true,
-///     author_id: Some(123),
+
 /// };
 /// ```
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, sqlx::FromRow, Validate)]
@@ -70,19 +69,7 @@ pub struct Post {
     #[serde(default, with = "chrono::serde::ts_seconds_option")] 
     pub updated_at: Option<DateTime<Utc>>,
     
-    /// Visibility status of the post
-    ///
-    /// # Default
-    /// `false` (draft state)
-    #[serde(default)]
-    pub is_published: bool,
-    
-    /// ID of the user who created this post
-    ///
-    /// # Note
-    /// - `None` indicates anonymous/ghost author  
-    /// - Set automatically during creation
-    pub author_id: Option<i32>,
+
 }
 
 impl Post {
@@ -97,29 +84,13 @@ impl Post {
             body,
             created_at: None,
             updated_at: None,
-            is_published: false,
-            author_id,
+
         };
         post.validate()?;
         Ok(post)
     }
     
-    /// Checks if the post is published
-    pub(super) fn published(&self) -> bool {
-        self.is_published
-    }
-    
-    /// Publishes a post
-    pub(super) fn publish(&mut self) {
-        self.is_published = true;
-        self.updated_at = Some(Utc::now());
-    }
-    
-    /// Unpublishes a post
-    pub(super) fn unpublish(&mut self) {
-        self.is_published = false;
-        self.updated_at = Some(Utc::now());
-    }
+
     
     /// Updates the post content
     pub(super) fn update_content(&mut self, title: String, body: String) -> Result<(), ValidationErrors> {
@@ -129,19 +100,5 @@ impl Post {
         self.validate()
     }
     
-    /// Determines if a user can edit this post
-    pub fn can_edit(&self, user: &User) -> bool {
-        // Admins can edit any post
-        if user.has_permission(Permission::All) {
-            return true;
-        }
-        
-        // Author can edit own post if they have EditOwnLoans permission
-        if user.has_permission(Permission::EditOwnLoans) && 
-           self.author_id.map_or(false, |id| id == user.id) {
-            return true;
-        }
-        
-        false
-    }
+
 }

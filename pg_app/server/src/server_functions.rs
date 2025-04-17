@@ -93,20 +93,30 @@ pub async fn delete_post(id: i32) -> Result<(), ServerFnError> {
 
 #[server]
 pub async fn update_post(id: i32, title: String, body: String) -> Result<Post, ServerFnError> {
-    let mut tx = get_db().await.begin().await?;
+    let db = get_db().await;
     
-    let updated = sqlx::query_as!(
+    // Input validation
+    if title.is_empty() || body.is_empty() {
+        return Err(ServerFnError::Request("Title and body cannot be empty".into()));
+    }
+    
+    let result = match sqlx::query_as!(
         Post,
         "UPDATE posts SET title = $1, body = $2 WHERE id = $3 RETURNING *",
-        title,
-        body,
+        title.trim(),
+        body.trim(),
         id
     )
-    .fetch_one(&mut tx)
-    .await?;
+    .fetch_one(db)
+    .await {
+        Ok(post) => post,
+        Err(e) => {
+            tracing::error!("Failed to update post: {}", e);
+            return Err(ServerFnError::ServerError("Failed to update post".into()));
+        }
+    };
     
-    tx.commit().await?;
-    Ok(updated)
+    Ok(result)
 }
 
 // #[server]

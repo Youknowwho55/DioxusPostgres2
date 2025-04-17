@@ -50,7 +50,7 @@ pub async fn create_user(
     last_name: String,
     username: String,
     email: String,
-    password: String,
+    password_hash: String,
     role: UserRole,    
     is_active: bool,
 ) -> Result<i32, ServerFnError> {
@@ -60,7 +60,7 @@ pub async fn create_user(
 
     let row = sqlx::query!(
         r#"
-        INSERT INTO users (first_name, last_name, username, email, password, role, is_active)
+        INSERT INTO users (first_name, last_name, username, email, password_hash, role, is_active)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING id
         "#,
@@ -68,7 +68,7 @@ pub async fn create_user(
         last_name,
         username,
         email,
-        password,
+        password_hash,
         role as UserRole,
         is_active
     )
@@ -100,7 +100,7 @@ pub async fn update_user(
     last_name: String,
     username: String,
     email: String,
-    password: String,
+    password_hash: String,
     role: UserRole,
     is_active: bool,
 ) -> Result<(), ServerFnError> {
@@ -114,7 +114,7 @@ pub async fn update_user(
             last_name = $2,
             username = $3,
             email = $4,
-            password = $5,
+            password_hash = $5,
             role = $6,
             is_active = $7
         WHERE id = $8
@@ -123,7 +123,7 @@ pub async fn update_user(
         last_name,
         username,
         email,
-        password,
+        password_hash,
         role as UserRole,
         is_active,
         id
