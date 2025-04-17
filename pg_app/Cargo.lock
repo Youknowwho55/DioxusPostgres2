@@ -580,8 +580,6 @@ dependencies = [
  "chrono",
  "dioxus",
  "log",
- "server",
- "shared",
  "tokio",
  "tracing",
  "wasm-bindgen-futures",
@@ -4489,6 +4487,7 @@ version = "0.1.0"
 dependencies = [
  "bcrypt",
  "chrono",
+ "components",
  "dioxus",
  "lazy_static",
  "regex",

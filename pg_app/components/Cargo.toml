@@ -9,8 +9,8 @@ edition = "2024"
 path = "src/lib.rs"  # This tells Cargo where to find the library
 
 [dependencies]
-server = { path = "../server" }
-shared = { path = "../shared" }
+shared = { path = "../shared", features = ["frontend"] }
+
 log = "0.4.27"
 chrono = { version = "0.4.40", features = ["clock"] }
 dioxus = { version = "0.6.3", features = ["desktop"] }  # Correct format

@@ -1,5 +1,6 @@
 // pg_app/shared/src/routes.rs
 use dioxus::prelude::*;
+use views::layout::AppLayout;
 
 
 #[derive(Debug, Clone, Routable, PartialEq)]

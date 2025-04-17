@@ -1,5 +1,6 @@
 use dioxus::prelude::*;
 use crate::ui::Avatar;
+use shared::routes::Route;  // Import from your shared crate
 
 
 // #[derive(Debug, Clone, Routable, PartialEq)]

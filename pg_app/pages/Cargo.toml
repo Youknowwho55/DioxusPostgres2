@@ -9,7 +9,6 @@ path = "src/main.rs"
 
 [dependencies]
 components = { path = "../components" }  # Relative path to your components crate
-shared = { path = "../shared" }
 dioxus = { version = "0.6.3", features = ["router", "fullstack"] }
 dioxus-desktop = "0.6.3"
 
