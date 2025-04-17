@@ -8,8 +8,14 @@ path = "src/lib.rs"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+server = { path = "../server" }
+shared = { path = "../shared" }
+log = "0.4"
 dioxus = { version = "0.6.3" }  # Keep as required dep
 dioxus-desktop = { version = "0.6.3", optional = true }  # Now optional
+chrono = "0.4.40"
+tokio = "1.44.2"
+
 
 # Platform-specific
 [target.'cfg(target_arch = "wasm32")'.dependencies]

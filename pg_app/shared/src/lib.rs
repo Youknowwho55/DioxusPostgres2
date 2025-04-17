@@ -17,5 +17,5 @@ pub mod error;
 pub use dtos::*;
 pub use validation::*;
 pub use error::*;
-
+pub use routes::*;
 

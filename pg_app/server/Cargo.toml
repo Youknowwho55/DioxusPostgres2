@@ -31,7 +31,7 @@ sqlx = { version = "0.8", optional = true, features = [
 ]}
 
 # SSR
-dioxus = { workspace = true, features = ["ssr"] }
+dioxus = { workspace = true, features = ["fullstack"] }
 
 [features]
 default = ["database"]
@@ -39,6 +39,8 @@ database = ["dep:sqlx", "shared/db"]
 
 [build-dependencies]
 sqlx = { version = "0.8", features = [
-    "postgres", 
+    "runtime-tokio",
+    "postgres",
+    "tls-rustls",
     "migrate"
 ]}

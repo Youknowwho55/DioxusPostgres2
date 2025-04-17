@@ -1,4 +1,4 @@
-use dioxus::prelude::*;
+use dioxus::{logger::tracing, prelude::*};
 use server::server_functions::get_all_posts;
 use shared::models::Post;
 

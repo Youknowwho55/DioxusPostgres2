@@ -11,6 +11,9 @@ path = "src/main.rs"  # Ensure this path exists
 dioxus = { workspace = true }
 dioxus-desktop = { workspace = true }  # For desktop
 dioxus-web = { workspace = true }      # For web (optional)
+
+
 pages = { path = "../pages" }
 components = { path = "../components" }
 shared = { path = "../shared", features = ["frontend"] }
+assets = { path = "../assets" }

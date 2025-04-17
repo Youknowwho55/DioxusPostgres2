@@ -10,6 +10,9 @@ use std::env;
 use tracing::info;
 // use sqlx::migrate::Migrator;
 
+
+
+
 static DB: OnceCell<PgPool> = OnceCell::const_new();
 
 async fn init_db() -> Result<PgPool, sqlx::Error> {

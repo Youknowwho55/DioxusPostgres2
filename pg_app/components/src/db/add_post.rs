@@ -1,4 +1,4 @@
-use dioxus::prelude::*;
+use dioxus::{logger::tracing, prelude::*};
 use server::server_functions::create_post;
 use crate::ui::input::{Input, InputType};
 use crate::ui::button::{Button, ButtonScheme};
