@@ -1,15 +1,11 @@
 // pg_app/server/src/server_functions.rs
 use dioxus::prelude::*;
-use shared::models::Post;
+use shared::{api, models::Post};
 use sqlx::{PgPool, postgres::PgRow, Row};  // Added Row import
 use tokio::sync::OnceCell;
 use dotenv::dotenv;
 use std::env;
 use tracing::info;
-// use sqlx::migrate::Migrator;
-
-
-
 
 static DB: OnceCell<PgPool> = OnceCell::const_new();
 
@@ -34,6 +30,39 @@ pub async fn get_db() -> &'static PgPool {
 
 
 #[server]
+pub async fn create_post(title: String, body: String) -> Result<i32, ServerFnError> {
+    let db = get_db().await;
+    
+    // Input validation
+    if title.trim().is_empty() || body.trim().is_empty() {
+        return Err(ServerFnError::Request("Title and body cannot be empty".into()));
+    }
+
+    match sqlx::query!(
+        "INSERT INTO posts (title, body) VALUES ($1, $2) RETURNING id",
+        title.trim(),
+        body.trim()
+    )
+    .fetch_one(db)
+    .await
+    {
+        Ok(record) => {
+            info!("Created new post with ID: {}", record.id);
+            Ok(record.id)
+        },
+        Err(e) => {
+            tracing::error!("Database error creating post: {}", e);
+            Err(ServerFnError::ServerError("Failed to create post".into()))
+        }
+    }
+}
+
+
+
+
+
+
+#[server]
 pub async fn get_all_posts() -> Result<Vec<Post>, ServerFnError> {
     let db = get_db().await;
 
@@ -45,17 +74,6 @@ pub async fn get_all_posts() -> Result<Vec<Post>, ServerFnError> {
 }
 
 
-// #[server]
-// pub async fn get_user(id: i32) -> Result<User, ServerFnError> {
-//     let db = get_db().await;
-
-//     let result = sqlx::query_as::<_, User>("SELECT * FROM users WHERE id = $1")
-//         .bind(id)
-//         .fetch_one(db)
-//         .await?;
-
-//     Ok(result)
-// }
 
 
 #[server]
@@ -69,28 +87,9 @@ pub async fn find_post(id: i32) -> Result<Post, ServerFnError> {
     Ok(result)
 }
 
-#[server]
-pub async fn create_post(title: String, body: String) -> Result<i32, ServerFnError> {
-    let db = get_db().await;
-    
-    // Input validation
-    if title.is_empty() || body.is_empty() {
-        return Err(ServerFnError::Request("Title and body cannot be empty".into()));
-    }
 
-    sqlx::query!(
-        "INSERT INTO posts (title, body) VALUES ($1, $2) RETURNING id",
-        title.trim(),  // Clean inputs
-        body.trim()
-    )
-    .fetch_one(db)
-    .await
-    .map(|row| row.id)
-    .map_err(|e| {
-        tracing::error!("Failed to create post: {}", e);
-        ServerFnError::ServerError("Failed to create post".into())
-    })
-}
+
+
 
 #[server]
 pub async fn delete_post(id: i32) -> Result<(), ServerFnError> {

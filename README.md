@@ -104,3 +104,18 @@ async-imap: IMAP client for receiving
 mail-builder: Email composition
 mail-parser: Email parsing
 reqwest: For webhook handling
+
+pg_app/app
+pg_app/assets
+pg_app/components
+pg_app/migrations
+pg_app/node_modules
+pg_app/pages
+pg_app/server
+pg_app/shared
+
+shared → (pure types only, no dependencies)
+components → shared
+pages → shared + components
+server → shared
+app → shared + components + pages

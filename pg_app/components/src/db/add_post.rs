@@ -1,39 +1,40 @@
 use dioxus::{logger::tracing, prelude::*};
-use server::server_functions::create_post;
+use shared::api::create_post;
 use crate::ui::input::{Input, InputType};
 use crate::ui::button::{Button, ButtonScheme};
 
 #[component]
 pub fn AddPost(
-    // Callback for when a post is added successfully
-    on_post_added: EventHandler<()>,
+    // Changed to expect the post ID
+    on_post_added: EventHandler<i32>,
 ) -> Element {
     let mut title = use_signal(String::new);
     let mut body = use_signal(String::new);
 
     let on_submit = move |_| {
-        to_owned![title, body, on_post_added];
+        to_owned![title, body];
         spawn(async move {
             let current_title = title.read().clone();
             let current_body = body.read().clone();
             
-            // Don't submit empty posts
+            // Client-side validation
             if current_title.trim().is_empty() || current_body.trim().is_empty() {
+                tracing::warn!("Attempted to submit empty post");
                 return;
             }
             
-            // Clear input fields immediately for better UX
+            // Clear fields immediately
             title.set(String::new());
             body.set(String::new());
             
-            // Create the post
             match create_post(current_title, current_body).await {
-                Ok(_) => {
-                    // Trigger refresh in parent component
-                    on_post_added.call(());
+                Ok(post_id) => {
+                    tracing::info!("Successfully created post {}", post_id);
+                    on_post_added.call(post_id);
                 }
-                Err(err) => {
-                    tracing::error!("Failed to save post: {err}");
+                Err(e) => {
+                    tracing::error!("Failed to create post: {}", e);
+                    // Optionally show error to user
                 }
             }
         });

@@ -594,7 +594,6 @@ dependencies = [
  "dioxus",
  "dioxus-desktop",
  "log",
- "server",
  "shared",
  "tokio",
  "wasm-bindgen-futures",
