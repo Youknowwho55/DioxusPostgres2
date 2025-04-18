@@ -6,6 +6,7 @@ edition = "2024"
 [dependencies]
 # Workspace dependencies (single declaration)
 shared = { path = "../shared", features = ["backend", "db"] }
+thiserror = "2.0.12"
 
 # Core runtime
 tokio = { version = "1.44", features = ["rt-multi-thread", "macros"] }
@@ -27,7 +28,10 @@ sqlx = { version = "0.8", optional = true, features = [
     "runtime-tokio",
     "postgres",
     "tls-rustls",
-    "migrate"
+    "migrate",
+    "time", 
+    "chrono"
+
 ]}
 
 # SSR
@@ -42,5 +46,8 @@ sqlx = { version = "0.8", features = [
     "runtime-tokio",
     "postgres",
     "tls-rustls",
-    "migrate"
+    "migrate",
+    "time", 
+    "chrono"
 ]}
+

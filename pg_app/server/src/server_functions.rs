@@ -1,9 +1,7 @@
 // pg_app/server/src/server_functions.rs
 use dioxus::prelude::*;
 use shared::models::Post;
-
-
-use sqlx::PgPool;
+use sqlx::{PgPool, postgres::PgRow, Row};  // Added Row import
 use tokio::sync::OnceCell;
 use dotenv::dotenv;
 use std::env;
@@ -39,18 +37,32 @@ pub async fn get_db() -> &'static PgPool {
 pub async fn get_all_posts() -> Result<Vec<Post>, ServerFnError> {
     let db = get_db().await;
 
-    let result = sqlx::query_as!(Post, "SELECT * FROM posts")
+    let result = sqlx::query_as::<_, Post>("SELECT * FROM posts")
         .fetch_all(db)
         .await?;
 
     Ok(result)
 }
 
+
+// #[server]
+// pub async fn get_user(id: i32) -> Result<User, ServerFnError> {
+//     let db = get_db().await;
+
+//     let result = sqlx::query_as::<_, User>("SELECT * FROM users WHERE id = $1")
+//         .bind(id)
+//         .fetch_one(db)
+//         .await?;
+
+//     Ok(result)
+// }
+
+
 #[server]
 pub async fn find_post(id: i32) -> Result<Post, ServerFnError> {
     let db = get_db().await;
 
-    let result = sqlx::query_as!(Post, "SELECT * FROM posts WHERE id = $1", id)
+    let result = sqlx::query_as::<_, Post>("SELECT * FROM posts WHERE id = $1")
         .fetch_one(db)
         .await?;
 
@@ -94,57 +106,26 @@ pub async fn delete_post(id: i32) -> Result<(), ServerFnError> {
     }
 }
 
+
+
 #[server]
 pub async fn update_post(id: i32, title: String, body: String) -> Result<Post, ServerFnError> {
     let db = get_db().await;
     
-    // Input validation
     if title.is_empty() || body.is_empty() {
         return Err(ServerFnError::Request("Title and body cannot be empty".into()));
     }
     
-    let result = match sqlx::query_as!(
-        Post,
-        "UPDATE posts SET title = $1, body = $2 WHERE id = $3 RETURNING *",
-        title.trim(),
-        body.trim(),
-        id
+    sqlx::query_as::<_, Post>(
+        "UPDATE posts SET title = $1, body = $2 WHERE id = $3 RETURNING *"
     )
+    .bind(title.trim())
+    .bind(body.trim())
+    .bind(id)
     .fetch_one(db)
-    .await {
-        Ok(post) => post,
-        Err(e) => {
-            tracing::error!("Failed to update post: {}", e);
-            return Err(ServerFnError::ServerError("Failed to update post".into()));
-        }
-    };
-    
-    Ok(result)
+    .await
+    .map_err(|e| {
+        tracing::error!("Failed to update post: {}", e);
+        ServerFnError::ServerError("Failed to update post".into())
+    })
 }
-
-// #[server]
-// pub async fn get_paginated_posts(
-//     page: Option<i64>,
-//     per_page: Option<i64>
-// ) -> Result<(Vec<Post>, i64), ServerFnError> {
-//     let page = page.unwrap_or(1);
-//     let per_page = per_page.unwrap_or(10);
-//     let offset = (page - 1) * per_page;
-
-//     let db = get_db().await;
-    
-//     let posts = sqlx::query_as!(
-//         Post,
-//         "SELECT * FROM posts ORDER BY created_at DESC LIMIT $1 OFFSET $2",
-//         per_page,
-//         offset
-//     )
-//     .fetch_all(db)
-//     .await?;
-
-//     let total: i64 = sqlx::query_scalar!("SELECT count(*) FROM posts")
-//         .fetch_one(db)
-//         .await?;
-
-//     Ok((posts, total))
-// }

@@ -94,3 +94,13 @@ body TEXT NOT NULL
 dx bundle --platform desktop \
  --package-types "macos" \
  --package-types "dmg"
+
+## Possible email
+
+Rust Crates to Consider
+
+lettre: SMTP email sending
+async-imap: IMAP client for receiving
+mail-builder: Email composition
+mail-parser: Email parsing
+reqwest: For webhook handling

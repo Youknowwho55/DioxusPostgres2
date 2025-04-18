@@ -2,8 +2,9 @@
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use validator::{Validate, ValidationErrors};
-use super::role_models::Permission;
-use super::user_models::User;
+// use super::role_models::Permission;
+// use super::user_models::User;
+
 
 
 // ===== Post Model =====
@@ -59,31 +60,30 @@ pub struct Post {
     ///
     /// # Serialization
     /// Stored as UNIX timestamp in seconds
-    #[serde(default, with = "chrono::serde::ts_seconds_option")]
-    pub created_at: Option<DateTime<Utc>>,
+    /// #[serde_as]
+    #[serde(with = "chrono::serde::ts_seconds")]
+    pub created_at: DateTime<Utc>,
     
     /// Timestamp of when the post was last modified  
     ///
-    /// # Note
-    /// Will be `None` if never updated after creation
-    #[serde(default, with = "chrono::serde::ts_seconds_option")] 
-    pub updated_at: Option<DateTime<Utc>>,
+    #[serde(with = "chrono::serde::ts_seconds")]
+    pub updated_at: DateTime<Utc>,
     
-
 }
+
+
 
 impl Post {
     pub(super) fn new(
         title: String,
         body: String,
-        author_id: Option<i32>,
     ) -> Result<Self, ValidationErrors> {
         let post = Self {
             id: 0, // Temporary ID before DB insertion
             title,
             body,
-            created_at: None,
-            updated_at: None,
+            created_at: Utc::now(),
+            updated_at: Utc::now(),
 
         };
         post.validate()?;
@@ -96,7 +96,7 @@ impl Post {
     pub(super) fn update_content(&mut self, title: String, body: String) -> Result<(), ValidationErrors> {
         self.title = title;
         self.body = body;
-        self.updated_at = Some(Utc::now());
+        self.updated_at = Utc::now();
         self.validate()
     }
     
