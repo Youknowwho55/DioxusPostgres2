@@ -2,42 +2,50 @@
 // The Solution: Use String-Based Paths with Full Qualification
 
 use dioxus::prelude::*;
+use crate::home::Home;
+use crate::dashboard::Dashboard;
+use crate::blog::Blog;
+use crate::random::Random;
+use crate::not_found::NotFound;
+
+
 /// Forward declarations for components
 /// Doing this to try and avoid circular dependencies
-#[component]
-pub fn Home() -> Element {
-    rsx!{}
-}
+// #[component]
+// pub fn Home() -> Element {
+//     rsx!{
+//     }
+// }
 
-#[component]
-pub fn Dashboard() -> Element {
-    rsx!{}
-}
+// #[component]
+// pub fn Dashboard() -> Element {
+//     rsx!{}
+// }
 
-#[component]
-pub fn Blog() -> Element {
-    rsx!{}
-}
+// #[component]
+// pub fn Blog() -> Element {
+//     rsx!{}
+// }
 
-#[component]
-pub fn Random() -> Element {
-    rsx!{}
-}
+// #[component]
+// pub fn Random() -> Element {
+//     rsx!{}
+// }
 
-#[component]
-pub fn BlogList() -> Element {
-    rsx!{}
-}
+// #[component]
+// pub fn BlogList() -> Element {
+//     rsx!{}
+// }
 
-#[component]
-pub fn BlogPost(name: String) -> Element {
-    rsx!{}
-}
+// #[component]
+// pub fn BlogPost(name: String) -> Element {
+//     rsx!{}
+// }
 
-#[component]
-pub fn PageNotFound(route: Vec<String>) -> Element {
-    rsx!{}
-}
+// #[component]
+// pub fn PageNotFound(route: Vec<String>) -> Element {
+//     rsx!{}
+// }
 
 #[derive(Routable, Clone, Debug, PartialEq)]
 #[rustfmt::skip]
@@ -56,9 +64,9 @@ pub enum Route {
     #[route("/random")]
     Random {},
     
-   #[end_layout]
-    #[route("/:..route")]
-    PageNotFound { route: Vec<String> },
+//    #[end_layout]
+    // #[route("/:..route")]
+    // NotFound { route: Vec<String> },
 }
 
 

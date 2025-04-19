@@ -12,12 +12,3 @@ pub fn Blog() -> Element {
     }
 }
 
-#[component]
-pub fn BlogList() -> Element {
-    
-    rsx! {
-        div {
-            p { "This is the blog list" }
-        }
-    }
-    }

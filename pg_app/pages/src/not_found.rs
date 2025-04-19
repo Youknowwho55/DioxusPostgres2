@@ -1,10 +1,10 @@
 use dioxus::prelude::*;
 
 #[component]
-pub fn NotFound(segments: Vec<String>) -> Element {
+pub fn NotFound(route: Vec<String>) -> Element {
     // Format path outside of rsx! macro
-    let path_display = if !segments.is_empty() {
-        format!("/{}", segments.join("/"))
+    let path_display = if !route.is_empty() {
+        format!("/{}", route.join("/"))
     } else {
         "".to_string()
     };

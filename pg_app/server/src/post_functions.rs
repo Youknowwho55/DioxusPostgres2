@@ -1,30 +1,10 @@
 // pg_app/server/src/server_functions.rs
 use dioxus::prelude::*;
-use shared::{api, models::Post};
-use sqlx::{PgPool, postgres::PgRow, Row};  // Added Row import
-use tokio::sync::OnceCell;
-use dotenv::dotenv;
-use std::env;
+use shared::models::Post;
+use crate::db_connection::get_db;  // Only importing what you're using
 use tracing::info;
 
-static DB: OnceCell<PgPool> = OnceCell::const_new();
 
-async fn init_db() -> Result<PgPool, sqlx::Error> {
-    dotenv().ok(); // loads from .env
-    
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    let connection_pool = PgPool::connect(&database_url).await?;
-
-    sqlx::migrate!("./../migrations").run(&connection_pool).await?;
-    Ok(connection_pool)
-}
-
-pub async fn get_db() -> &'static PgPool {
-    // Initialize the DB pool if not already initialized
-    let pool = DB.get_or_init(|| async { init_db().await.expect("Failed to initialize database") }).await;
-    info!("Database pool obtained");
-    pool
-}
  
 
 

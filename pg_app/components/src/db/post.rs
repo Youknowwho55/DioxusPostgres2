@@ -3,7 +3,7 @@ use dioxus::{
 };
 use crate::ui::input::{Input, InputType};
 use crate::ui::button::{Button, ButtonScheme};
-use shared::api::{delete_post, update_post, get_all_posts};
+use server::post_functions::{delete_post, update_post, get_all_posts};
 
 use shared::models;
 use std::sync::Arc;

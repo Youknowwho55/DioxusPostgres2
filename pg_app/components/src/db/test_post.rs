@@ -1,6 +1,7 @@
 use dioxus::{logger::tracing, prelude::*};
 use shared::models::Post;
-use shared::api::get_all_posts;
+use server::post_functions::get_all_posts;
+
 
 #[derive(Props, Clone, PartialEq)]
 pub struct PostsContainerProps {

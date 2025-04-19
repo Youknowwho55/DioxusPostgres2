@@ -1,5 +1,5 @@
 use dioxus::{logger::tracing, prelude::*};
-use shared::api::create_post;
+use server::post_functions::create_post;
 use crate::ui::input::{Input, InputType};
 use crate::ui::button::{Button, ButtonScheme};
 
@@ -28,9 +28,9 @@ pub fn AddPost(
             body.set(String::new());
             
             match create_post(current_title, current_body).await {
-                Ok(()) => {
-                    tracing::info!("Successfully created post");
-                    on_post_added.call(0); // Replace 0 with a placeholder or appropriate value
+                Ok(post_id) => {
+                    tracing::info!("Successfully created post with ID: {}", post_id);
+                    on_post_added.call(post_id);
                 }
                 Err(e) => {
                     tracing::error!("Failed to create post: {}", e);

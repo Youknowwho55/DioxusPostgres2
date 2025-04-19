@@ -3,7 +3,7 @@ pub mod home;
 pub use home::Home;
 
 pub mod blog;
-pub use blog::{Blog,BlogList};
+pub use blog::Blog;
 
 
 pub mod dashboard;
