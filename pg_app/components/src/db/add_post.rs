@@ -28,9 +28,9 @@ pub fn AddPost(
             body.set(String::new());
             
             match create_post(current_title, current_body).await {
-                Ok(post_id) => {
-                    tracing::info!("Successfully created post {}", post_id);
-                    on_post_added.call(post_id);
+                Ok(()) => {
+                    tracing::info!("Successfully created post");
+                    on_post_added.call(0); // Replace 0 with a placeholder or appropriate value
                 }
                 Err(e) => {
                     tracing::error!("Failed to create post: {}", e);

@@ -4414,6 +4414,7 @@ dependencies = [
  "bcrypt",
  "chrono",
  "dioxus",
+ "dioxus-fullstack",
  "lazy_static",
  "regex",
  "serde",

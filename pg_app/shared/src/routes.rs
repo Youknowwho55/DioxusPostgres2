@@ -1,49 +1,68 @@
-// shared/src/routes.rs
-use dioxus::prelude::*;
-use super::page_components::*;
+// //pg_app/shared/src/routes.rs
+// // The Solution: Use String-Based Paths with Full Qualification
 
-// Forward declare components (they'll be implemented in pages/)
-#[component]
-pub fn NavBar() -> Element;
 
-#[component]
-pub fn Home() -> Element;
 
-#[component]
-pub fn Blog() -> Element;
 
-#[component]
-pub fn BlogList() -> Element;
+// use dioxus::prelude::*;
 
-#[component]
-pub fn BlogPost(name: String) -> Element;
+// /// Forward declarations for components
+// /// Doing this to try and avoid circular dependencies
+// #[component]
+// pub fn Home() -> Element {
+//     rsx!{}
+// }
 
-#[component]
-pub fn PageNotFound(route: Vec<String>) -> Element;
+// #[component]
+// pub fn Dashboard() -> Element {
+//     rsx!{}
+// }
 
-#[derive(Routable, Clone, Debug, PartialEq)]
-#[rustfmt::skip]
-pub enum Route {
-    #[layout(NavBar)]
-        #[route("/")]
-        Home {},
-        #[route("/dashboard")]
-        Dashboard {},
-        #[route("/blog")]
-        Blog {},
-        #[route("/random")]
-        Random {},
-        
-        #[nest("/blog")]
-        #[layout(Blog)]
-            #[route("/")]
-            BlogList {},
-            #[route("/:name")]
-            BlogPost { name: String },
-        #[end_layout]
-        #[end_nest]
-    #[end_layout]
+// #[component]
+// pub fn Blog() -> Element {
+//     rsx!{}
+// }
+
+// #[component]
+// pub fn Random() -> Element {
+//     rsx!{}
+// }
+
+// #[component]
+// pub fn BlogList() -> Element {
+//     rsx!{}
+// }
+
+// #[component]
+// pub fn BlogPost(name: String) -> Element {
+//     rsx!{}
+// }
+
+// #[component]
+// pub fn PageNotFound(route: Vec<String>) -> Element {
+//     rsx!{}
+// }
+
+// #[derive(Routable, Clone, Debug, PartialEq)]
+// #[rustfmt::skip]
+
+// pub enum Route {
+//     #[layout(crate::pages::layout::app_layout::AppLayout)]
+//     #[route("/")]
+//     Home {},
     
-    #[route("/:..route")]
-    PageNotFound { route: Vec<String> },
-}
+//     #[route("/dashboard")]
+//     Dashboard {},
+    
+//     #[route("/blog")]
+//     Blog {},
+    
+//     #[route("/random")]
+//     Random {},
+    
+//    #[end_layout]
+//     #[route("/:..route")]
+//     PageNotFound { route: Vec<String> },
+// }
+
+
