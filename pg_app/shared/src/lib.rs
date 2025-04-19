@@ -7,9 +7,8 @@
 pub mod dtos;
 /// Module for models
 pub mod models;
-/// Module for validation utilities and helpers
+/// Module for Validation
 pub mod validation;
-// pub mod routes;
 
 pub mod error;
 
@@ -17,8 +16,6 @@ pub mod error;
 pub use dtos::*;
 pub use validation::*;
 pub use error::*;
-// pub use routes::*;
-
 pub mod api;
 
 

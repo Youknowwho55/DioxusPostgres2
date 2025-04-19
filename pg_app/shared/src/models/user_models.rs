@@ -14,7 +14,8 @@ use super::role_models::{Permission, UserRole};
 pub struct User {
     pub id: i32,
     #[validate(custom(function = "validate_username"))]
-    pub username: String,
+    /// The username of the user, which must pass validation.
+        pub username: String,
     #[validate(length(
         min = 1,
         max = 100,
