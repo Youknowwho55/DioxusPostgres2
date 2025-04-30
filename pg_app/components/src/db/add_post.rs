@@ -41,7 +41,7 @@ pub fn AddPost(
     };
 
     rsx! {
-        div { class: "bg-gray-50 p-4 rounded border",
+        div { class: "my-1 flex flex-row items-center gap-2",
             h2 { class: "text-lg font-medium mb-3", "Add New Post" }
             div { class: "space-y-3",
                 Input {
